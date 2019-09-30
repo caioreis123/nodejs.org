@@ -137,6 +137,10 @@ function buildLocale (source, locale, opts) {
     .use(markdown(markedOptions))
     .use(githubLinks({ locale, site: i18nJSON(locale) }))
     .use(prism())
+    // Set pretty permalinks, we don't want .html suffixes everywhere.
+    .use(permalinks({
+      relative: false
+    }))
     // Generates the feed XML files from their respective collections which were
     // defined earlier on.
     .use(feed({
@@ -158,10 +162,6 @@ function buildLocale (source, locale, opts) {
       collection: 'blogVulnerability',
       destination: 'feed/vulnerability.xml',
       title: 'Node.js Blog: Vulnerability Reports'
-    }))
-    // Set pretty permalinks, we don't want .html suffixes everywhere.
-    .use(permalinks({
-      relative: false
     }))
     // Finally, this compiles the rest of the layouts present in ./layouts.
     // They're language-agnostic, but have to be regenerated for every locale
